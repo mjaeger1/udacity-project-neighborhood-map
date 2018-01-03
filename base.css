@@ -28,13 +28,19 @@ html, body {
 }
 
 .box__navigation__title {
-  width: 290px;
+  width: 90px;
   padding-left: 10px;
   display: flex;
   align-items: center;
 }
 
-.box__navigation__search, .box__navigation__close {
+.box__navigation__search {
+  width: 250px;
+  display: flex;
+  align-items: center;
+}
+
+.box__navigation__close {
   width: 50px;
   display: flex;
   align-items: center;
@@ -42,6 +48,33 @@ html, body {
 
 .box__navigation__close__icon, .box__navigation__search__icon {
   margin: auto;
+}
+
+input[type=text] {
+    width: 150px;
+    border: 0;
+    border-bottom: 1px solid #ffffff;
+    font-size: 14px;
+    font-weight: lighter;
+    color: #E0F7FA;
+    background: #0097A7;
+
+    padding: 6px 0px 6px 0px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 230px;
+    border: 0;
+    border-bottom: 1px solid #ffffff;
+    outline: none;
+}
+
+input::placeholder {
+  color: #B2EBF2;
+  font-size: 14px;
+  font-weight: lighter;
 }
 
 h1 {
