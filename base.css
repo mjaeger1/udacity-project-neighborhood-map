@@ -1,0 +1,60 @@
+/* icons source: https://material.io/icons/ */
+
+html, body {
+  font-family: Roboto, sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  height: 100%;
+  position: relative;
+}
+
+.box {
+  background: #fff;
+  height: 100%;
+  width: 400px;
+  text-align: left;
+}
+
+.box__navigation {
+  background: #0097A7;
+  height: 64px;
+  width: 400px;
+  display: flex;
+  align-items: stretch;
+}
+
+.box__navigation__title {
+  width: 290px;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.box__navigation__search, .box__navigation__close {
+  width: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.box__navigation__close__icon, .box__navigation__search__icon {
+  margin: auto;
+}
+
+h1 {
+  font-size: 20px;
+  color: #ffffff;
+  font-weight: lighter;
+}
+
+#map {
+  height: 100%;
+  left: 400px;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  top: 0px;
+}

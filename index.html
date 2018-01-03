@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Peaks</title>
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+  <div class="container">
+    <div class="box">
+
+      <div class="box__navigation">
+        <div class="box__navigation__title">
+          <h1>Peaks</h1>
+        </div>
+        <div class="box__navigation__search">
+          <div class=box__navigation__search__icon>
+            <i class="material-icons" style="font-size:22px;color:white;">search</i>
+          </div>
+        </div>
+        <div class="box__navigation__close">
+          <div class="box__navigation__close__icon">
+            <i class="material-icons" style="font-size:22px;color:white;">close</i>
+          </div>
+        </div>
+      </div>
+
+      <div class="box__content">
+        <div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div id="map"></div>
+  </div>
+
+  <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwHNu53FB4PpmEu2ryFklnZ29MILxkZNU&v=3&callback=initMap">
+  </script>
+  <script src="base.js"></script>
+  <script src="lib/knockout-3.2.0.js"></script>
+  <script src="model.js"></script>
+  <script src="view.js"></script>
+  <script src="viewmodel.js"></script>
+</body>
+</html>
