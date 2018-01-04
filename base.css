@@ -1,7 +1,12 @@
-/* icons source: https://material.io/icons/ */
+/*
+
+icons: https://fonts.googleapis.com/icon?family=Material+Icons
+color palette CYAN: https://material.io/guidelines/style/color.html#color-color-palette
+
+*/
 
 html, body {
-  font-family: Roboto, sans-serif;
+  font-family: Roboto, Arial, sans-serif;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -12,14 +17,17 @@ html, body {
   position: relative;
 }
 
-.box {
+/* .box {
   background: #fff;
   height: 100%;
   width: 400px;
   text-align: left;
-}
+} */
 
-.box__navigation {
+
+/* ### NAVIGATION ### */
+
+.navigation {
   background: #0097A7;
   height: 64px;
   width: 400px;
@@ -27,27 +35,28 @@ html, body {
   align-items: stretch;
 }
 
-.box__navigation__title {
+.navigation__title {
   width: 90px;
   padding-left: 10px;
   display: flex;
   align-items: center;
 }
 
-.box__navigation__search {
+.navigation__search {
   width: 250px;
   display: flex;
   align-items: center;
 }
 
-.box__navigation__close {
+.navigation__close {
   width: 50px;
   display: flex;
   align-items: center;
 }
 
-.box__navigation__close__icon, .box__navigation__search__icon {
+.navigation__close__icon, .navigation__search__icon {
   margin: auto;
+  cursor: pointer;
 }
 
 input[type=text] {
@@ -83,10 +92,45 @@ h1 {
   font-weight: lighter;
 }
 
+/* ### CONTENT ### */
+
+.content {
+  background-color: #fff;
+  width: 400px;
+}
+
+.content__peaks {
+  margin-left: 12px;
+  padding-top: 12px;
+}
+
+ul {
+    list-style-image: url('./img/mountain_16.png');
+    /* source: https://www.flaticon.com/free-icon/mountain-range_61110#term=mountain peak&page=1&position=1*/
+    color: #006064;
+}
+
+li {
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+
+/* ### FOOTER ### */
+
+.content_footnotes {
+  font-size: 10px;
+  color: #006064;
+  padding: 12px;
+}
+
+
+/* ### MAP ### */
+
 #map {
   height: 100%;
-  left: 400px;
+  left: 0;
   position: absolute;
+  z-index: -1;
   right: 0px;
   bottom: 0px;
   top: 0px;

@@ -7,34 +7,46 @@
   <title>Peaks</title>
   <link rel="stylesheet" href="base.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="icon" href="./img/mountain_36.png">
 </head>
 <body>
   <div class="container">
-    <div class="box">
 
-      <div class="box__navigation">
-        <div class="box__navigation__title">
-          <h1>Peaks</h1>
-        </div>
-        <div class="box__navigation__search">
-          <div class=box__navigation__search__icon>
-            <input type="text" name="search" placeholder="Search ...">
-          </div>
-        </div>
-        <div class="box__navigation__close">
-          <div class="box__navigation__close__icon">
-            <i class="material-icons" style="font-size:22px;color:white;">close</i>
-          </div>
+    <!-- <div class="box"> -->
+
+    <div class="navigation">
+      <div class="navigation__title">
+        <h1>Peaks</h1>
+      </div>
+      <div class="navigation__search">
+        <div class=navigation__search__icon>
+          <input type="text" name="search" placeholder="Search ...">
         </div>
       </div>
-
-      <div class="box__content">
-        <div>
-
+      <div class="navigation__close">
+        <div class="navigation__close__icon">
+          <i class="material-icons" style="font-size:22px;color:white;" data-bind="visible: showBox, click: toggleBox">close</i>
+          <i class="material-icons" style="font-size:22px;color:white;" data-bind="visible: !showBox(), click: toggleBox">menu</i>
         </div>
       </div>
-
     </div>
+
+
+    <div class="content" data-bind="visible: showBox">
+      <ul class="content__peaks" data-bind="foreach: peaksArray">
+        <li data-bind=" click: $parent.clickedPeak, text: name"></li>
+      </ul>
+
+      <div class="content_footnotes" data-bind="visible: showBox">
+        <div class="credits"> Mountain icon made by
+          <a href="https://www.flaticon.com/authors/google" title="Google" target="_blank">Google</a>
+          from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank">www.flaticon.com</a>
+          is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
+          title="Creative Commons BY 3.0" target="_blank" target="_blank">CC 3.0 BY</a></div>
+      </div>
+    </div>
+
+    <!-- </div> -->
 
     <div id="map"></div>
   </div>
@@ -45,7 +57,6 @@
   <script src="base.js"></script>
   <script src="lib/knockout-3.2.0.js"></script>
   <script src="model.js"></script>
-  <script src="view.js"></script>
   <script src="viewmodel.js"></script>
 </body>
 </html>
