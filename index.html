@@ -20,7 +20,7 @@
       </div>
       <div class="navigation__search">
         <div class=navigation__search__icon>
-          <input type="text" name="search" placeholder="Search ...">
+          <input type="text" name="search" placeholder="Search ..." data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
         </div>
       </div>
       <div class="navigation__close">
@@ -37,7 +37,7 @@
         <li data-bind=" click: $parent.clickedPeak, text: name"></li>
       </ul> -->
 
-      <div class="content__peaks" data-bind="foreach: peaksArray">
+      <div class="content__peaks" data-bind="foreach: peaksObsArray">
         <img src="./img/mountain_16.png" alt="mountain icon">
         <span class="content__peaks__span" data-bind=" click: $parent.clickedPeak, text: name"></span>
       </div>
@@ -51,8 +51,8 @@
     <div class="footer" data-bind="visible: showBox">
       <div class="credits"> Icons made by
         <a href="https://www.flaticon.com/authors/google" title="Google" target="_blank">Google</a>
-        from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank">www.flaticon.com</a>
-        is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
+        from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank">www.flaticon.com</a>,
+        licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
         title="Creative Commons BY 3.0" target="_blank" target="_blank">CC 3.0 BY</a></div>
     </div>
 

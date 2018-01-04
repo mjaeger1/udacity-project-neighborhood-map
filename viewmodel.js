@@ -1,11 +1,13 @@
 
 var ViewModel = function() {
 
+  var self = this;
+
   var highlightMarker, defaultMarker;
   var peakInfoWindow;
 
   // This function initially creates the markers
-  this.createMapElements = function () {
+  self.createMapElements = function () {
 
     // Create a "highlighted location" marker
     highlightMarker = makeMarkerIcon('AD1457');
@@ -27,7 +29,7 @@ var ViewModel = function() {
       });
 
       // Create an onclick event to open the large infowindow at each marker.
-      // TODO: map interactions currently don't work because of z-index... 
+      // TODO: map interactions currently don't work because of z-index...
       marker.addListener('click', function() {
         highlightPeak(this, highlightMarker, defaultMarker);
         showInfoWindow(this, peakInfoWindow);
@@ -44,23 +46,48 @@ var ViewModel = function() {
 
   // Handles showing/hiding of content box
   // Box initially visible
-  this.showBox = ko.observable(true);
+  self.showBox = ko.observable(true);
 
   // Function that toggles  visibility
-  this.toggleBox = function() {
-      if (this.showBox() === true){
-        this.showBox(false);
+  self.toggleBox = function() {
+      if (self.showBox() === true){
+        self.showBox(false);
       }
       else {
-        this.showBox(true);
+        self.showBox(true);
       }
   };
 
   // Function handling clicks on peaks in list
-  this.clickedPeak = function(peak) {
+  self.clickedPeak = function(peak) {
     var markerPos = peaksArray.indexOf(peak);
     highlightPeak(markers[markerPos], highlightMarker, defaultMarker);
     showInfoWindow(markers[markerPos], peakInfoWindow);
+  };
+
+
+  // SEARCH inspired by: https://opensoul.org/2011/06/23/live-search-with-knockoutjs/
+
+  // Observable Arrays of all peaks
+  self.peaksObsArray = ko.observableArray(peaksArray);
+
+  // Observable capturing search terms
+  self.query = ko.observable('');
+
+  self.search = function(value) {
+
+    // remove all the current peaks, which removes them from the view
+    self.peaksObsArray([]);
+
+    var selectedPeakIndices = [];
+
+    for(var i = 0; i < peaksArray.length; i++) {
+      if(peaksArray[i].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+        self.peaksObsArray.push(peaksArray[i]);
+        selectedPeakIndices.push(i);
+      }
+    }
+    showSelectedPeaks(selectedPeakIndices);
   };
 
 }
@@ -70,6 +97,9 @@ var ViewModel = function() {
 var peaksViewModel = new ViewModel();
 ko.applyBindings(peaksViewModel);
 
+// Registering subscription of changes to "query"
+// If change, then call the search function
+peaksViewModel.query.subscribe(peaksViewModel.search);
 
 
 
@@ -101,6 +131,19 @@ function showPeaks() {
     bounds.extend(markers[i].position);
   }
   map.fitBounds(bounds);
+}
+
+// This function shows only the filtered peaks
+function showSelectedPeaks(indices) {
+
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+
+  for (var i = 0; i < indices.length; i++) {
+    markers[indices[i]].setMap(map);
+  }
+
 }
 
 
