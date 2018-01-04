@@ -30,9 +30,10 @@ html, body {
 .navigation {
   background: #0097A7;
   height: 64px;
-  width: 400px;
+  width: 100%;
   display: flex;
   align-items: stretch;
+  justify-content: space-between;
 }
 
 .navigation__title {
@@ -50,6 +51,7 @@ html, body {
 
 .navigation__close {
   width: 50px;
+  padding-right: 10px;
   display: flex;
   align-items: center;
 }
@@ -96,41 +98,52 @@ h1 {
 
 .content {
   background-color: #fff;
-  width: 400px;
+  width: 100%;
 }
 
 .content__peaks {
-  margin-left: 12px;
-  padding-top: 12px;
+  padding: 12px;
 }
 
 ul {
+    color: #006064;
     list-style-image: url('./img/mountain_16.png');
     /* source: https://www.flaticon.com/free-icon/mountain-range_61110#term=mountain peak&page=1&position=1*/
-    color: #006064;
 }
 
-li {
+.content__peaks__span {
+  cursor: pointer;
+  margin-right: 32px;
+  color: #006064;
+}
+
+/* li {
   padding-bottom: 10px;
   cursor: pointer;
-}
+} */
 
 /* ### FOOTER ### */
 
-.content_footnotes {
+.footer {
   font-size: 10px;
   color: #006064;
   padding: 12px;
+  text-align: right;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 
 /* ### MAP ### */
 
 #map {
+  top: 64px;
   height: 100%;
-  left: 0;
-  position: absolute;
-  z-index: -1;
+  left: 4px;
+  position: relative;
+  /* z-index: -1; */
   right: 0px;
   bottom: 0px;
   top: 0px;

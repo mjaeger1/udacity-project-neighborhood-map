@@ -1,3 +1,5 @@
+var markers = [];
+
 var peaksArray = [
   {
     name: 'Untersberg',
