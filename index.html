@@ -5,14 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Peaks</title>
-  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="main.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="icon" href="./img/mountain_36.png">
 </head>
 <body>
   <div class="container">
-
-    <!-- <div class="box"> -->
 
     <div class="navigation">
       <div class="navigation__title">
@@ -33,15 +31,11 @@
 
 
     <div class="content" data-bind="visible: showBox">
-
       <div class="content__peaks" data-bind="foreach: peaksObsArray">
         <img src="./img/mountain_16.png" alt="mountain icon">
         <span class="content__peaks__span" data-bind=" click: $parent.clickedPeak, text: name"></span>
       </div>
-
     </div>
-
-    <!-- </div> -->
 
     <div id="map"></div>
 
@@ -55,7 +49,7 @@
 
   </div>
 
-  <script src="base.js"></script>
+  <script src="initmap.js"></script>
   <script src="lib/knockout-3.2.0.js"></script>
   <script src="model.js"></script>
   <script src="viewmodel.js"></script>

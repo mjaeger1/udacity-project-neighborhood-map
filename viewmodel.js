@@ -1,3 +1,9 @@
+/**
+ * ViewModel and core functionality of application. Based on knockout.js
+ * Some functions influenced by or borrowed from:
+ * https://github.com/udacity/ud864/blob/master/Project_Code_5_BeingStylish.html
+ */
+
 
 var ViewModel = function() {
 
@@ -39,12 +45,10 @@ var ViewModel = function() {
     });
 
     showPeaks();
-
   };
 
-
-  // Handles showing/hiding of content box
-  // Box initially visible
+  // Handles showing/hiding of peak list
+  // List initially visible
   self.showBox = ko.observable(true);
 
   // Function that toggles visibility
@@ -65,7 +69,7 @@ var ViewModel = function() {
   };
 
 
-  // SEARCH inspired by: https://opensoul.org/2011/06/23/live-search-with-knockoutjs/
+  // SEARCH below inspired by: https://opensoul.org/2011/06/23/live-search-with-knockoutjs/
 
   // Observable Arrays of all peaks
   self.peaksObsArray = ko.observableArray(peaksArray);
@@ -88,8 +92,7 @@ var ViewModel = function() {
     }
     showSelectedPeaks(selectedPeakIndices);
   };
-
-}
+};
 
 
 // Initialising ViewModel
@@ -102,23 +105,21 @@ peaksViewModel.query.subscribe(peaksViewModel.search);
 
 
 
-// ***************************** //
-// All map related functionality //
-// ***************************** //
+/**
+ * All major map-related functionality below
+ */
 
-
-// This function creates marker with color provided
-// Source: /ud864/Project_Code_5_BeingStylish.html
+// This function creates markers with color as provided
 function makeMarkerIcon(markerColor) {
   var markerImage = new google.maps.MarkerImage(
     'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
     '|40|_|%E2%80%A2',
-    new google.maps.Size(21, 34), // 21px wide, 34 px high
-    new google.maps.Point(0, 0), // origin 0,0
-    new google.maps.Point(10, 34), // anchored at 10,34
+    new google.maps.Size(21, 34),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(10, 34),
     new google.maps.Size(21,34));
   return markerImage;
-  }
+}
 
 
 // This function loops through the markers array and display them all
@@ -132,21 +133,22 @@ function showPeaks() {
   map.fitBounds(bounds);
 }
 
+
 // This function shows only the filtered peaks
 function showSelectedPeaks(indices) {
-
+  // Remove all markers
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(null);
   }
 
-  for (var i = 0; i < indices.length; i++) {
-    markers[indices[i]].setMap(map);
+  // Show markers filtered for
+  for (var j = 0; j < indices.length; j++) {
+    markers[indices[j]].setMap(map);
   }
-
 }
 
 
-// This function highlights one peak with different pin and infowindow
+// This function highlights one peak with different pin
 function highlightPeak(marker, highlightmarker, defaultmarker) {
 
   // Set all markers to default
@@ -154,47 +156,42 @@ function highlightPeak(marker, highlightmarker, defaultmarker) {
     markers[i].setIcon(defaultmarker);
   }
 
-  // Highlights one marker
+  // Highlight one marker
   marker.setIcon(highlightmarker);
-  // map.setCenter(marker.position);
-
 }
 
-// This function populates the infowindow when the marker is clicked. We'll only allow
-// one infowindow which will open at the marker that is clicked, and populate based
-// on that markers position.
+
+// This function shows the infowindow when the marker or the list is clicked.
+// Info from wikipedia is added if the api call is successful
 function showInfoWindow(marker, infowindow) {
 
-
-  // TODO: add MediaWiki call
-  // https://de.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=watzmann
-
-  var wikiSnippet;
-
+  // Call MediaWiki to get a short description for the respective location
   $.ajax({
     type: "GET",
     url: `https://de.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${marker.title}`,
     dataType: 'jsonp',
+    // If successful, add resulting title, snippet and URL
     success: function (x) {
-      wikiSnippet = x.query.search[0].title + ': ' + x.query.search[0].snippet +
+      var wikiInfo = x.query.search[0].title + ': ' + x.query.search[0].snippet +
                   ' <a href="https://de.wikipedia.org/w/index.php?search=' + marker.title +
                   '" target="_blank">de.wikipedia.org</a>';
-      createInfoWindow(wikiSnippet);
+      createInfoWindow(wikiInfo);
     },
+    // If unsuccessful, inform user there is no further information available
     error: function (x) {
-      wikiSnippet = "no further information available.";
-      //console.log(wikiSnippet);
-      createInfoWindow(wikiSnippet);
+      var wikiInfo = "no further information available.";
+      createInfoWindow(wikiInfo);
     }
   });
 
-  function createInfoWindow() {
+  // This function displays the infowindow
+  function createInfoWindow(wikiInfo) {
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
       infowindow.marker = marker;
       infowindow.setContent('<div>' + marker.title + '</div>' +
                             '<div>' + marker.position + '</div>' +
-                            '<div>' + wikiSnippet + '</div>') ;
+                            '<div>' + wikiInfo + '</div>') ;
       infowindow.open(map, marker);
       // Make sure the marker property is cleared if the infowindow is closed.
       infowindow.addListener('closeclick', function() {
@@ -202,5 +199,4 @@ function showInfoWindow(marker, infowindow) {
       });
     }
   }
-
 }
