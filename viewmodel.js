@@ -29,7 +29,6 @@ var ViewModel = function() {
       });
 
       // Create an onclick event to open the large infowindow at each marker.
-      // TODO: map interactions currently don't work because of z-index...
       marker.addListener('click', function() {
         highlightPeak(this, highlightMarker, defaultMarker);
         showInfoWindow(this, peakInfoWindow);
@@ -48,7 +47,7 @@ var ViewModel = function() {
   // Box initially visible
   self.showBox = ko.observable(true);
 
-  // Function that toggles  visibility
+  // Function that toggles visibility
   self.toggleBox = function() {
       if (self.showBox() === true){
         self.showBox(false);
@@ -166,15 +165,42 @@ function highlightPeak(marker, highlightmarker, defaultmarker) {
 // on that markers position.
 function showInfoWindow(marker, infowindow) {
 
-  // Check to make sure the infowindow is not already opened on this marker.
-  if (infowindow.marker != marker) {
-    infowindow.marker = marker;
-    infowindow.setContent('<div>' + marker.title + '</div>' +
-                          '<div>' + marker.position + '</div>');
-    infowindow.open(map, marker);
-    // Make sure the marker property is cleared if the infowindow is closed.
-    infowindow.addListener('closeclick', function() {
-      infowindow.marker = null;
-    });
+
+  // TODO: add MediaWiki call
+  // https://de.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=watzmann
+
+  var wikiSnippet;
+
+  $.ajax({
+    type: "GET",
+    url: `https://de.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${marker.title}`,
+    dataType: 'jsonp',
+    success: function (x) {
+      wikiSnippet = x.query.search[0].title + ': ' + x.query.search[0].snippet +
+                  ' <a href="https://de.wikipedia.org/w/index.php?search=' + marker.title +
+                  '" target="_blank">de.wikipedia.org</a>';
+      createInfoWindow(wikiSnippet);
+    },
+    error: function (x) {
+      wikiSnippet = "no further information available.";
+      //console.log(wikiSnippet);
+      createInfoWindow(wikiSnippet);
+    }
+  });
+
+  function createInfoWindow() {
+    // Check to make sure the infowindow is not already opened on this marker.
+    if (infowindow.marker != marker) {
+      infowindow.marker = marker;
+      infowindow.setContent('<div>' + marker.title + '</div>' +
+                            '<div>' + marker.position + '</div>' +
+                            '<div>' + wikiSnippet + '</div>') ;
+      infowindow.open(map, marker);
+      // Make sure the marker property is cleared if the infowindow is closed.
+      infowindow.addListener('closeclick', function() {
+        infowindow.marker = null;
+      });
+    }
   }
+
 }

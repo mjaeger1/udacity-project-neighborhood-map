@@ -17,13 +17,6 @@ html, body {
   position: relative;
 }
 
-/* .box {
-  background: #fff;
-  height: 100%;
-  width: 400px;
-  text-align: left;
-} */
-
 
 /* ### NAVIGATION ### */
 
@@ -105,22 +98,12 @@ h1 {
   padding: 12px;
 }
 
-ul {
-    color: #006064;
-    list-style-image: url('./img/mountain_16.png');
-    /* source: https://www.flaticon.com/free-icon/mountain-range_61110#term=mountain peak&page=1&position=1*/
-}
-
 .content__peaks__span {
   cursor: pointer;
   margin-right: 32px;
   color: #006064;
 }
 
-/* li {
-  padding-bottom: 10px;
-  cursor: pointer;
-} */
 
 /* ### FOOTER ### */
 
@@ -130,7 +113,6 @@ ul {
   padding: 12px;
   text-align: right;
   position: fixed;
-  left: 0;
   bottom: 0;
   width: 100%;
 }
@@ -139,12 +121,6 @@ ul {
 /* ### MAP ### */
 
 #map {
-  top: 64px;
   height: 100%;
-  left: 4px;
   position: relative;
-  /* z-index: -1; */
-  right: 0px;
-  bottom: 0px;
-  top: 0px;
 }
