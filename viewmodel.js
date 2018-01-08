@@ -169,19 +169,22 @@ function showInfoWindow(marker, infowindow) {
   $.ajax({
     type: "GET",
     url: `https://de.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${marker.title}`,
-    dataType: 'jsonp',
-    // If successful, add resulting title, snippet and URL
-    success: function (x) {
-      var wikiInfo = x.query.search[0].title + ': ' + x.query.search[0].snippet +
-                  ' <a href="https://de.wikipedia.org/w/index.php?search=' + marker.title +
-                  '" target="_blank">de.wikipedia.org</a>';
-      createInfoWindow(wikiInfo);
-    },
-    // If unsuccessful, inform user there is no further information available
-    error: function (x) {
-      var wikiInfo = "no further information available.";
-      createInfoWindow(wikiInfo);
-    }
+    dataType: 'jsonp'
+  })
+  // If successful, add resulting title, snippet and URL
+  .done(function(json) {
+    var wikiInfo = json.query.search[0].snippet +
+                ' <a href="https://de.wikipedia.org/w/index.php?search=' + marker.title +
+                '" target="_blank">de.wikipedia.org</a>';
+    createInfoWindow(wikiInfo);
+  })
+  // If unsuccessful, inform user there is no further information available
+  .fail(function( xhr, status, errorThrown ) {
+    var wikiInfo = "no further information available.";
+    createInfoWindow(wikiInfo);
+    console.log( "Error: " + errorThrown );
+    console.log( "Status: " + status );
+    console.dir( xhr );
   });
 
   // This function displays the infowindow
