@@ -38,6 +38,7 @@
     </div>
 
     <div id="map"></div>
+    <div id="maperror"></div>
 
     <div class="footer" data-bind="visible: showBox">
       <div class="credits"> Icons made by
@@ -55,9 +56,9 @@
   <script src="viewmodel.js"></script>
   <script src="lib/jquery.js"></script>
 
-  <script
+  <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwHNu53FB4PpmEu2ryFklnZ29MILxkZNU&v=3&callback=initMap"
-    async defer>
+    onerror="mapNotLoadingError()">
   </script>
 
 </body>

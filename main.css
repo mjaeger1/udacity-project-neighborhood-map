@@ -123,3 +123,12 @@ h1 {
   height: 100%;
   position: relative;
 }
+
+#maperror {
+  position: fixed;
+  top: 250px;
+  text-align: center;
+  width: 100%;
+  font-size: 14px;
+  color: #880E4F;
+}
